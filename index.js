@@ -1,3 +1,9 @@
+// ADD THIS AT THE TOP OF YOUR index.js
+const express = require('express');
+const app = express();
+app.get('/', (_, res) => res.send('WhatsApp Bot is running!'));
+app.listen(process.env.PORT || 3000, () => console.log("Web server running"));
+
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const { appendRow } = require('./sheets');
