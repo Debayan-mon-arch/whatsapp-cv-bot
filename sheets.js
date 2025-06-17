@@ -1,18 +1,24 @@
 const { google } = require('googleapis');
 const path = require('path');
-const fs = require('fs');
 
-// Load your credentials
+// ✅ Safely parse GOOGLE_CREDENTIALS env var
+let credentials;
+try {
+  credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+} catch (error) {
+  console.error("❌ Failed to parse GOOGLE_CREDENTIALS. Check your Railway environment variable.");
+  process.exit(1); // crash early with clear reason
+}
+
 const auth = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
+  credentials,
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-// Your Google Sheet ID and tab name
+// Replace with your actual sheet ID and tab name
 const SPREADSHEET_ID = '1fZjlWYa6tdGCthamdWHPN5MtsbiLaJpB_IVRsInjj2E';
 const SHEET_NAME = 'Responses';
 
-// Append a row to the Google Sheet
 async function appendRow(rowData) {
   const client = await auth.getClient();
   const sheets = google.sheets({ version: 'v4', auth: client });
