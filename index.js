@@ -196,13 +196,3 @@ client.on('message', async msg => {
     }
   }
 });
-
-client.initialize();
-
-const express = require('express');
-const app = express();
-
-app.get('/', (req, res) => res.send('WhatsApp CV Bot is live!'));
-app.listen(process.env.PORT || 3000, () => {
-  console.log('✅ Express server running on port 3000');
-});
